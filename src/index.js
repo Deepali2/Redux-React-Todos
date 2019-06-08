@@ -13,6 +13,7 @@ const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && wi
 //the redux store. But now any component will be able to 
 //dispatch actions so the react components do not need to 
 //keep track of the state as redux is doing that for them.s
+//dataflow: create store, reducer function, mapStateToProps, component
 ReactDOM.render(
   <Provider store={store}> 
     <App />
