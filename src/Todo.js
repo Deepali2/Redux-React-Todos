@@ -2,12 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Todo = (props) => (
-  <li>{props.todo}</li>
+  <li>
+    {props.todo}
+    <button onClick={props.removeTodo}>X</button>
+  </li>
 )
 
 Todo.propTypes = {
   todo: PropTypes.string,
-  key: PropTypes.number
+  removeTodo: PropTypes.func  
 }
 
 export default Todo;
