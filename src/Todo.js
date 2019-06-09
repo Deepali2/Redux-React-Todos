@@ -10,7 +10,8 @@ const Todo = (props) => (
 
 Todo.propTypes = {
   todo: PropTypes.string,
-  removeTodo: PropTypes.func  
+  removeTodo: PropTypes.func,
+  updateTodo: PropTypes.func 
 }
 
 export default Todo;

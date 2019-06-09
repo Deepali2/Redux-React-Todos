@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Todo from "./Todo";
 import {connect} from "react-redux";
+import {addTodo, removeTodo} from "./actionCreators";
 
 class TodoList extends Component {
   constructor(props) {
@@ -11,13 +12,11 @@ class TodoList extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.props.dispatch({
-      type: "ADD_TODO",
-      todo: this.state.todo
-    });
+    this.props.addTodo(this.state.todo);
     e.target.reset() //reset the form
   }
 
@@ -28,11 +27,17 @@ class TodoList extends Component {
   }
 
   removeTodo(id) {
-    this.props.dispatch({
-      type: "REMOVE_TODO",
-      id
-    })
+    this.props.removeTodo(id);
   }
+
+//  handleClick(e) {
+//   e.preventDefault();
+//   this.props.dispatch({
+//     type: "UPDATE_TODO",
+//     todo: this.state.todo
+//   });
+//   e.target.reset()
+//  }
 
   render () {
     let todos = this.props.todos.map((todo, index) => (
@@ -48,9 +53,10 @@ class TodoList extends Component {
             name="todo" 
             id="todo"
             onChange={this.handleChange}
+            // onClick={this.handleClick}
             placeholder='todo'
             />
-          <button>Add a Todo!</button>
+          {/* <button>Add a Todo!</button> */}
         </form>      
         <ul>
           {todos}
@@ -67,4 +73,4 @@ function mapStateToProps(reduxState) { // we are turning our redux state into pr
   }
 }
 
-export default connect(mapStateToProps)(TodoList);
+export default connect(mapStateToProps, {addTodo, removeTodo})(TodoList);

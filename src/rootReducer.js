@@ -1,4 +1,4 @@
-import {ADD_TODO, REMOVE_TODO} from "./constants";
+import {ADD_TODO, REMOVE_TODO, UPDATE_TODO} from "./constants";
 
 const initialState = {
   todos: [],
@@ -13,8 +13,8 @@ export default function rootReducer(state=initialState, action) {
       let todos = [...newState.todos, {todo:action.todo, id: newState.id}];
       return {...newState, todos};
     case REMOVE_TODO:
-       let updatedTodos = state.todos.filter(todo => todo.id !== action.id);
-       return {...state, todos: updatedTodos};
+       let newTodos = state.todos.filter(todo => todo.id !== action.id);
+       return {...state, todos: newTodos};
     default:
       return state;
   }
