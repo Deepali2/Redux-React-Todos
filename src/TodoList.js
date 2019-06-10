@@ -1,29 +1,21 @@
 import React, {Component} from "react";
 import Todo from "./Todo";
+import NewTodoForm from './NewTodoForm';
 import {connect} from "react-redux";
 import {addTodo, removeTodo} from "./actionCreators";
+import {Route} from "react-router-dom";
 
 class TodoList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      todo: ''
-    }
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+   
+    this.handleAdd = this.handleAdd.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
     // this.handleClick = this.handleClick.bind(this);
   }
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.addTodo(this.state.todo);
-    e.target.reset() //reset the form
-  }
 
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
+  handleAdd(todo) {
+    this.props.addTodo(todo);
   }
 
   removeTodo(id) {
@@ -45,24 +37,13 @@ class TodoList extends Component {
     ));
     //Since for is a reserved word in JavaScript, React elements use htmlFor instead. If you use htmlFor on your React element, for will end up in the DOM.
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="todo">Task</label>
-          <input 
-            type="text" 
-            name="todo" 
-            id="todo"
-            onChange={this.handleChange}
-            // onClick={this.handleClick}
-            placeholder='todo'
-            />
-          {/* <button>Add a Todo!</button> */}
-        </form>      
-        <ul>
-          {todos}
-        </ul>
-      </div>
-    )
+       <div>
+         <Route path="/todos/new" component={props => (
+           <NewTodoForm {...props} handleSubmit={this.handleAdd} />
+         )} />
+         <Route exact path="/todos"component={() => <div><ul>{todos}</ul></div>} />
+       </div>
+    );
   }
 }
 
