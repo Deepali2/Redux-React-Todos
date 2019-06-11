@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>to dos</h1>
-        <h2>App built using Redux/React</h2>
+        <h2>App built using Redux, React, React-Router-Dom</h2>
         <p>
           <Link to="/todos">See my todos!</Link>
         </p>
