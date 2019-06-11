@@ -1,16 +1,59 @@
-import {ADD_TODO, REMOVE_TODO} from "./constants";
+import {ADD_TODO, REMOVE_TODO, GET_TODOS} from "./constants";
 
 //action creators are functions that return objects. They are used to connect React with Redux
-export function addTodo(todo) { //actiion creator for addTodo
+
+function handleTodos(data) {
+  return {
+    type: GET_TODOS,
+    data
+  };  
+}
+
+function handleAdd(todo) { //actiion creator for addTodo
   return {
     type: ADD_TODO,
     todo
   };
 }
 
-export function removeTodo(id) { //action creator for remove Todo
+function handleRemove(id) { //action creator for remove Todo
   return {
     type: REMOVE_TODO,
     id
   };
+}
+
+export function getTodos() {
+  return dispatch => {
+    return fetch("http://localhost:3001/api/todos") //ajax call
+    .then(res => res.json())
+    .then(data => dispatch(handleTodos(data)))
+    .catch(err => console.log("SOMETHING WENT WRONG!", err));
+  };
+}
+
+export function addTodos(todo) {
+  return dispatch => {
+    return fetch("http://localhost:3001/api/todos", {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify({todo})
+    })
+    .then(res => res.json())
+    .then(data => dispatch(handleAdd(data)))
+    .catch(err => console.log("SOMETHING WENT WRONG", err));
+  }
+}
+
+export function removeTodo(id) {
+  return dispatch => {
+    return fetch(`http://localhost:3001/api/todos/${id}`, {
+      method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(data => dispatch(handleRemove(id)))
+    .catch(err => console.log("SOMETHING WENT WRONG", err))
+  }
 }
