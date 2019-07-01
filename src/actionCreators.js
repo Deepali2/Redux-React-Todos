@@ -32,7 +32,7 @@ export function getTodos() {
   };
 }
 
-export function addTodos(todo) {
+export function addTodo(todo) {
   return dispatch => {
     return fetch("http://localhost:3001/api/todos", {
       method: "POST",
